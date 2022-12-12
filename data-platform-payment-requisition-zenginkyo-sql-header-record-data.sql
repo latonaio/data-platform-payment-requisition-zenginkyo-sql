@@ -1,8 +1,8 @@
 CREATE TABLE `data_platform_payment_requisition_zenginkyo_header_record_data`
 (
+  `PayerPaymentRequisitionID`              int(16) NOT NULL,
   `Payer`                                  int(12) NOT NULL,
   `PayerPaymentDate`                       date NOT NULL,
-  `PayerPaymentRequisitionID`              int(6) NOT NULL,
   `RecordType`                             varchar(1) NOT NULL,         -- "1"                 データ区分
   `BussinesType`                           varchar(2) NOT NULL,         -- "21"                業務種別       
   `CharacterType`                          varchar(1) NOT NULL,         -- "0"                 文字コード種類
@@ -17,8 +17,9 @@ CREATE TABLE `data_platform_payment_requisition_zenginkyo_header_record_data`
   `BranchName`                             varchar(15) DEFAULT NULL,    -- "◯◯支店"           当組合支店名称
   `Dummy`                                  varchar(17) DEFAULT NULL,    --                     ダミー 
 
-    PRIMARY KEY (`Payer`, `PayerPaymentDate`, `PayerPaymentRequisitionID`),
+    PRIMARY KEY (`PayerPaymentRequisitionID`),
 
+    CONSTRAINT `DataPlatformPaymentRequisitionZenginkyoHeaderRecordData_fk` FOREIGN KEY (`PayerPaymentRequisitionID`) REFERENCES `data_platform_payment_requisition_header_data` (`PayerPaymentRequisitionID`),
     CONSTRAINT `DataPlatformPaymentRequisitionZenginkyoHeaderRecordDataPayer_fk` FOREIGN KEY (`Payer`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`)
  
 ) ENGINE = InnoDB

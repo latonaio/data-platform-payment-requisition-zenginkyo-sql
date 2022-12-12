@@ -1,9 +1,9 @@
 CREATE TABLE `data_platform_payment_requisition_zenginkyo_data_record_data`
 (
+  `PayerPaymentRequisitionID`              int(16) NOT NULL,
+  `PayerPaymentRequisitionItem`            int(6) NOT NULL,
   `Payer`                                  int(12) NOT NULL,
   `PayerPaymentDate`                       date NOT NULL,
-  `PayerPaymentRequisitionID`              int(6) NOT NULL,
-  `PayerPaymentRequisitionItem`            int(6) NOT NULL,
   `Payee`                                  int(12) NOT NULL,
   `RecordType`                             varchar(1) NOT NULL,        -- "2"            データ区分  
   `BussinesType`                           varchar(2) NOT NULL,        -- "21"           業務種別       
@@ -28,9 +28,9 @@ CREATE TABLE `data_platform_payment_requisition_zenginkyo_data_record_data`
   `Identification`                         varchar(1) DEFAULT NULL,    -- "Y"            識別表示
   `Dummy`                                  varchar(7) DEFAULT NULL,    --                未使用
 
-    PRIMARY KEY (`Payer`, `PayerPaymentDate`, `PayerPaymentRequisitionID`, `PayerPaymentRequisitionItem`),
+    PRIMARY KEY (`PayerPaymentRequisitionID`, `PayerPaymentRequisitionItem`),
 
-    CONSTRAINT `DataPlatformPaymentRequisitionZenginkyoDataRecordData_fk` FOREIGN KEY (`Payer`, `PayerPaymentDate`, `PayerPaymentRequisitionID`) REFERENCES `data_platform_payment_requisition_zenginkyo_header_record_data` (`Payer`, `PayerPaymentDate`, `PayerPaymentRequisitionID`),
+    CONSTRAINT `DataPlatformPaymentRequisitionZenginkyoDataRecordData_fk` FOREIGN KEY (`PayerPaymentRequisitionID`) REFERENCES `data_platform_payment_requisition_zenginkyo_header_record_data` (`PayerPaymentRequisitionID`),
     CONSTRAINT `DataPlatformPaymentRequisitionZenginkyoDataRecordDataPayee_fk` FOREIGN KEY (`Payee`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`)
 
 ) ENGINE = InnoDB
